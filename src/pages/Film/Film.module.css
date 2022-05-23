@@ -1,0 +1,27 @@
+.film_poster {
+    width: 55vw;
+    height: 28vw;
+    max-width: 600px;
+    max-height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    margin: 0 auto 2em;
+    box-shadow: -.5em .5em .5em rgba(0, 0, 0, .3);
+}
+
+.film_desc {
+    line-height: 1.2;
+}
+
+.info_table {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 1em;
+    border-collapse: collapse;
+}
+
+.table_row > td {
+    padding: .2em 1em;
+}

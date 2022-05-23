@@ -1,5 +1,5 @@
-import Logo from '../../common/Logo/Logo';
-import Input from '../../common/Input/Input';
+import Logo from '../../components/common/Logo/Logo';
+import Input from '../../components/common/Input/Input';
 
 import styles from './Header.module.css';
 

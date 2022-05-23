@@ -1,66 +1,31 @@
 import { useEffect, useState } from 'react';
-import { RatingIcon } from '../../common/Icons';
+import { Link } from 'react-router-dom';
+
+// custom components
+import { RatingIcon } from '../../components/common/Icons';
+import { Headline } from '../../components/common/Headlines/Headlines';
 
 import styles from './Main.module.css';
-
-
-let filmList = [
-    {
-        id: 1,
-        img: 'img',
-        title: 'Venom',
-        rating: 4.5
-    },
-    {
-        id: 2,
-        img: 'img',
-        title: 'Iron Man',
-        rating: 3.5
-    },
-    {
-        id: 3,
-        img: 'img',
-        title: 'Spider-man',
-        rating: 2.5
-    },
-    {
-        id: 4,
-        img: 'img',
-        title: 'Doctor Strange',
-        rating: 4.5
-    },
-    {
-        id: 5,
-        img: 'img',
-        title: 'Spider-man: Far from home',
-        rating: 2.5
-    },
-    {
-        id: 6,
-        img: 'img',
-        title: 'Thor',
-        rating: 4.8
-    }
-];
 
 
 function Main() {
     let [films, setFilms] = useState([]);
 
-    let apiKye = 'f34afb54d9ab14f0bf9d905dc6836800';
-    let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKye}&language=en&page=1`;
+    // TODO: make a multiple pages
+    let page = 1;
+
+    const apiKye = 'f34afb54d9ab14f0bf9d905dc6836800';
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKye}&language=en&page=${page}`;
 
 
     useEffect(() => {
         fetch(url)
             .then(response => response.json())
-            .then(film => {
-                console.log(film.results);
-                setFilms(film.results);
-            });
-    }, []);
+            .then(film => setFilms(film.results));
+    }, [url, apiKye]);
 
     return <div id="main_page">
+        <Headline title='Top Films' />
         <FilmList films={films || []} />
     </div>
 };
@@ -75,15 +40,27 @@ function FilmList({ films }) {
 };
 
 function FilmItem({ film }) {
-    // TODO: add link with film id to film page
+    return <Link to={`film:${film.id}`} className={styles.film_item} data-id={film.id}>
+        <FilmPoster poster={film.poster_path} />
+        <Adult adult={film.adult} />
+        <FilmFooter title={film.title} vote={film.vote_average} />
+    </Link>
+};
 
-    return <div className={styles.film_item} data-id={film.id}>
-        <div className={styles.film_img} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${film.poster_path})` }}></div>
-        {film.adult && <div className={styles.adult}>18+</div>}
-        <div className={styles.film_footer}>
-            <div className={styles.film_title}>{film.title}</div>
-            <div className={styles.film_rating}><RatingIcon /> <span>{film.vote_average}</span></div>
-        </div>
+
+function FilmPoster({ poster }) {
+    const imgUrl = 'https://image.tmdb.org/t/p/w500';
+    return <div className={styles.film_img} style={{ backgroundImage: `url(${imgUrl}${poster})` }} />
+};
+
+function Adult({ adult }) {
+    return adult && <div className={styles.adult}>18+</div>
+};
+
+function FilmFooter({ title, vote }) {
+    return <div className={styles.film_footer}>
+        <div className={styles.film_title}>{title}</div>
+        <div className={styles.film_rating}><RatingIcon /> <span>{vote}</span></div>
     </div>
 };
 
