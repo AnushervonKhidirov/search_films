@@ -1,0 +1,19 @@
+.search_films {
+    position: relative;
+    z-index: 9;
+}
+
+.matched_films {
+    position: absolute;
+    top: 100%;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: .5em .5em 1em rgba(0, 0, 0, .5);
+}
+
+.matched_film {
+    padding: .5em 1em;
+    border-top: 1px solid #d6d6d6;
+}

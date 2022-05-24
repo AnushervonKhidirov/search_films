@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 // custom components
 import { Headline } from '../../components/common/Headlines/Headlines';
@@ -7,11 +7,11 @@ import { Headline } from '../../components/common/Headlines/Headlines';
 import styles from './Film.module.css';
 
 function Film() {
-    let [film, setFilm] = useState([]);
-    let { id } = useParams('id');
+    const [film, setFilm] = useState([]);
+    const [searchParams] = useSearchParams();
 
-    let apiKye = 'f34afb54d9ab14f0bf9d905dc6836800';
-    let url = `https://api.themoviedb.org/3/movie/${id.replace(/:/, '')}?api_key=${apiKye}&language=en-US`;
+    const apiKye = 'f34afb54d9ab14f0bf9d905dc6836800';
+    const url = `https://api.themoviedb.org/3/movie/${searchParams.get('filmId')}?api_key=${apiKye}&language=en-US`;
 
 
     useEffect(() => {
@@ -33,9 +33,8 @@ function Film() {
 
 
 function Poster({ image }) {
-    return (
-        image && <div className={styles.film_poster} style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${image})` }} />
-    );
+    const imgUrl = 'https://image.tmdb.org/t/p/w500';
+    return image && <div className={styles.film_poster} style={{ backgroundImage: `url(${imgUrl}${image})` }} />
 };
 
 function Description({ desc }) {
@@ -44,7 +43,7 @@ function Description({ desc }) {
 
 
 function InfoTable({ info }) {
-    let infoData = [
+    const infoData = [
         {
             title: 'Production Countries',
             value: info.production_countries
@@ -66,9 +65,9 @@ function InfoTable({ info }) {
     function time(value) {
         if (value < 60) return `${value}m`;
 
-        let h = Math.floor(value / 60);
-        let m = value - (h * 60) > 9 ? value - (h * 60) : `0${value - (h * 60)}`;
-        return `${h}h ${m}m`;
+        const h = Math.floor(value / 60);
+        const m = value - (h * 60);
+        return `${h}h ${m > 9 ? m : `0${m}`}m`;
     };
 
     return <table border={1} className={styles.info_table}>

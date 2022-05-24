@@ -1,7 +1,7 @@
 .film_list {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(4, 250px);
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 2em;
     flex-wrap: wrap;
 }

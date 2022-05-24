@@ -1,5 +1,7 @@
+
+// custom components
 import Logo from '../../components/common/Logo/Logo';
-import Input from '../../components/common/Input/Input';
+import SearchFilm from '../common/SearchFilm/SearchFilm';
 
 import styles from './Header.module.css';
 
@@ -7,7 +9,8 @@ function Header() {
     return (
         <header className={styles.header}>
             <Logo />
-            <Input />
+
+            <SearchFilm />
         </header>
     )
 }
