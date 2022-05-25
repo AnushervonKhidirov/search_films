@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 // custom components
 import styles from './SearchFilm.module.css';
-
 
 
 function SearchFilm() {
@@ -28,6 +27,12 @@ function SearchFilm() {
         const value = e.target.value;
 
         setFilmName(value);
+        
+        if (value === '') {
+            clear();
+            return;
+        };
+
         sendRequest(value);
     };
 
@@ -61,8 +66,7 @@ function SearchFilm() {
 function MatchedFilms({ filmList = [], totalMatch, clear }) {
     return <div className={styles.matched_films}>
         {filmList.map((film, index) => {
-            if (index >= totalMatch) return;
-            return <Link to={`film/?filmId=${film.id}`} className={styles.matched_film} onClick={clear} key={film.title + index}>{film.title}</Link>
+            return index < totalMatch && <Link to={`film/?filmId=${film.id}`} className={styles.matched_film} onClick={clear} key={film.title + index}>{film.title}</Link>
         })}
     </div>
 };

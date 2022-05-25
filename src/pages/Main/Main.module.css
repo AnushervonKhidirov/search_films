@@ -75,3 +75,33 @@
     height: 1em;
     margin-right: .25em;
 }
+
+.pagination {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 4em;
+    z-index: 9;
+    gap: 1em;
+}
+
+.pagination_button {
+    display: flex;
+    width: 2.5em;
+    height: 2.5em;
+    justify-content: center;
+    align-items: center;
+    background: var(--main);
+    color: #fff;
+    font-weight: 700;
+    border: .2em solid var(--main);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.pagination_button:hover,
+.pagination_button.active {
+    background: #fff;
+    color: var(--main);
+}
